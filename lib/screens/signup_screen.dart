@@ -42,6 +42,24 @@ class _SignupScreenState extends State<SignupScreen> {
               SvgPicture.asset('essets/ic_instagram.svg',
                   color: primaryColor, height: 64),
               const SizedBox(height: 64),
+              // cicular widget to accept and show our selected file
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    radius: 64,
+                    backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1645366361629-d76b9a0063ea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60'),
+                  ),
+                  Positioned(
+                      bottom: -10,
+                      left: 80,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.add_a_photo),
+                      ))
+                ],
+              ),
+              const SizedBox(height: 24),
               // text field input for username
               TextFieldInput(
                 hintText: 'Enter your username',
