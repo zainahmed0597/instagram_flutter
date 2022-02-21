@@ -109,11 +109,11 @@ class _SignupScreenState extends State<SignupScreen> {
               InkWell(
                 onTap: () async {
                   String res = await AuthMethods().signUpUser(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    username: _usernameController.text,
-                    bio: _bioController.text,
-                  );
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      username: _usernameController.text,
+                      bio: _bioController.text,
+                      file: _image!);
                   print(res);
                 },
                 child: Container(
