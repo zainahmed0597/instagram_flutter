@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:instagram_flutter/resources/storage_methods.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -18,15 +19,18 @@ class AuthMethods {
     String res = "Some error occurred";
     try {
       if (email.isNotEmpty ||
-              password.isNotEmpty ||
-              username.isNotEmpty ||
-              bio.isNotEmpty
-          // || file != null
-          ) {
+          password.isNotEmpty ||
+          username.isNotEmpty ||
+          bio.isNotEmpty ||
+          file != null) {
         // register user
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         print(cred.user!.uid);
+
+        String photoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePics', file, false);
+
         // add user to our database
         await _firestore.collection('user').doc(cred.user!.uid).set({
           'username': username,
@@ -35,8 +39,8 @@ class AuthMethods {
           'bio': bio,
           'followers': [],
           'following': [],
+          'photoUrl': photoUrl,
         });
-
         //
         // await _firestore.collection('user').add({
         //   'username': username,
@@ -46,10 +50,16 @@ class AuthMethods {
         //   'followers': [],
         //   'following': [],
         // });
-
         res = "success";
       }
-    } catch (err) {
+    }
+    // Explain "exception" !!!
+    // on FirebaseAuthException catch (err) {
+    //   if (err.code == 'invalid-email') {
+    //     res = "This email is badly formatted.";
+    //   }
+    // }
+    catch (err) {
       res = err.toString();
     }
     return res;

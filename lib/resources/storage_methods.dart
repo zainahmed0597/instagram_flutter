@@ -12,6 +12,7 @@ class StorageMethods {
       String childName, Uint8List file, bool isPost) async {
     Reference ref =
         _storage.ref().child(childName).child(_auth.currentUser!.uid);
+
     UploadTask uploadTask = ref.putData(file);
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
