@@ -11,7 +11,6 @@ import '../widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
-
   @override
   _SignupScreenState createState() => _SignupScreenState();
 }
@@ -22,6 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   Uint8List? _image;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -39,10 +39,30 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().signUpUser(
+        email: _emailController.text,
+        password: _passwordController.text,
+        username: _usernameController.text,
+        bio: _bioController.text,
+        file: _image!);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (res != 'success') {
+      showSnackBar(res, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: (SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
@@ -52,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Container(),
                 flex: 2,
               ),
-              SvgPicture.asset('essets/ic_instagram.svg',
+              SvgPicture.asset('assets/ic_instagram.svg',
                   color: primaryColor, height: 64),
               const SizedBox(height: 64),
               // cicular widget to accept and show our selected file
@@ -107,17 +127,15 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 24),
               // button login
               InkWell(
-                onTap: () async {
-                  String res = await AuthMethods().signUpUser(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      username: _usernameController.text,
-                      bio: _bioController.text,
-                      file: _image!);
-                  print(res);
-                },
+                onTap: signUpUser,
                 child: Container(
-                  child: const Text('Log in'),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : const Text('Sign in'),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -155,7 +173,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ],
           ),
         ),
-      ),
+      )),
     );
   }
 }
