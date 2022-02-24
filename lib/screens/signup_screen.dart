@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_flutter/resources/auth_methods.dart';
+import 'package:instagram_flutter/screens/login_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 
@@ -56,6 +57,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
     if (res != 'success') {
       showSnackBar(res, context);
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => const HomeScreen()));
     }
   }
 
@@ -161,7 +164,10 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const LoginScreen()));
+                    },
                     child: Container(
                       child: const Text("Log in.",
                           style: TextStyle(fontWeight: FontWeight.bold)),
