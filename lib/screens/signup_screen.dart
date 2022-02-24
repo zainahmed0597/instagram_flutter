@@ -8,6 +8,9 @@ import 'package:instagram_flutter/screens/login_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_screen_layout.dart';
 import '../widgets/text_field_input.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -57,9 +60,18 @@ class _SignupScreenState extends State<SignupScreen> {
 
     if (res != 'success') {
       showSnackBar(res, context);
-      // Navigator.of(context).pushReplacement(
-      //     MaterialPageRoute(builder: (context) => const HomeScreen()));
+    } else {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+                mobileScreenLayout: MobileScreenLayout(),
+                webScreenLayout: WebScreenLayout(),
+              )));
     }
+  }
+
+  void navigateToLogin() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   @override
@@ -86,8 +98,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           radius: 64, backgroundImage: MemoryImage(_image!))
                       : const CircleAvatar(
                           radius: 64,
-                          backgroundImage:
-                              NetworkImage('https://tinyurl.com/8zm69nr'),
+                          backgroundImage: NetworkImage(
+                              'https://cdn.dribbble.com/users/1577045/screenshots/4914645/media/028d394ffb00cb7a4b2ef9915a384fd9.png?compress=1&resize=400x300&vertical=top'),
                         ),
                   Positioned(
                       bottom: -10,
@@ -164,10 +176,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
-                    },
+                    onTap: navigateToLogin,
                     child: Container(
                       child: const Text("Log in.",
                           style: TextStyle(fontWeight: FontWeight.bold)),
