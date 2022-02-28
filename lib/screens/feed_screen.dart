@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utils/colors.dart';
-import '../utils/dimensions.dart';
+import '../utils/global_variable.dart';
 import '../widgets/post_card.dart';
 
 class FeedScreen extends StatefulWidget {

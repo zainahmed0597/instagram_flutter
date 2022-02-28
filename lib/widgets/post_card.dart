@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_flutter/models/user.dart' as model;
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../providers/user_provider.dart';
 import '../resources/firestore_methods.dart';
 import '../screens/comments_screen.dart';
 import '../utils/colors.dart';
-import '../utils/dimensions.dart';
+import '../utils/global_variable.dart';
 import '../utils/utils.dart';
 import 'like_animation.dart';
 

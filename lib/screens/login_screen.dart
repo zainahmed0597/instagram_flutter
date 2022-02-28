@@ -7,7 +7,7 @@ import '../resources/auth_methods.dart';
 import '../responsive/mobile_screen_layout.dart';
 import '../responsive/responsive_layout_screen.dart';
 import '../responsive/web_screen_layout.dart';
-import '../utils/dimensions.dart';
+import '../utils/global_variable.dart';
 import '../utils/utils.dart';
 import '../widgets/text_field_input.dart';
 
