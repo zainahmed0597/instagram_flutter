@@ -9,9 +9,7 @@ pickImage(ImageSource source) async {
 
   if (_file != null) {
     return await _file.readAsBytes();
-    // return File(_file.path); this is working  on iOS & Android not on Web
   }
-  // ignore: avoid_print
   print('No image selected');
 }
 
